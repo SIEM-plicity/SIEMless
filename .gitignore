@@ -1,0 +1,32 @@
+
+# === Terraform ===
+*.tfstate
+*.tfstate.backup
+*.tfvars
+.terraform/
+crash.log
+override.tf
+override.tf.json
+terraform.rc
+.terraform.lock.hcl
+
+# === AWS credentials or secrets ===
+*.pem
+*.key
+*.env
+
+# === System / Editor files ===
+.DS_Store
+Thumbs.db
+*.swp
+*.bak
+
+# === Python / Automation (if used later) ===
+__pycache__/
+*.pyc
+
+# === Logs ===
+*.log
+
+# === VSCode ===
+.vscode/
