@@ -1,0 +1,83 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "S3Access",
+      "Effect": "Allow",
+      "Action": [
+        "s3:CreateBucket",
+        "s3:PutBucketNotificationConfiguration",
+        "s3:GetBucketNotificationConfiguration",
+        "s3:DeleteBucket",
+        "s3:ListAllMyBuckets",
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:DeleteObject"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "LambdaAccess",
+      "Effect": "Allow",
+      "Action": [
+        "lambda:CreateFunction",
+        "lambda:UpdateFunctionCode",
+        "lambda:GetFunction",
+        "lambda:InvokeFunction",
+        "lambda:DeleteFunction",
+        "lambda:CreateEventSourceMapping",
+        "lambda:DeleteEventSourceMapping",
+        "lambda:ListEventSourceMappings"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "IAMAccessForLambda",
+      "Effect": "Allow",
+      "Action": [
+        "iam:CreateRole",
+        "iam:DeleteRole",
+        "iam:AttachRolePolicy",
+        "iam:PutRolePolicy",
+        "iam:PassRole",
+        "iam:GetRole",
+        "iam:ListRolePolicies"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "CloudWatchAccess",
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents",
+        "logs:DescribeLogGroups",
+        "logs:DescribeLogStreams"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "EventBridgeAccess",
+      "Effect": "Allow",
+      "Action": [
+        "events:PutRule",
+        "events:DeleteRule",
+        "events:PutTargets",
+        "events:RemoveTargets",
+        "events:DescribeRule",
+        "events:ListRules"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "BasicReadAccess",
+      "Effect": "Allow",
+      "Action": [
+        "sts:GetCallerIdentity",
+        "cloudformation:ListStacks"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
