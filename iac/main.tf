@@ -38,3 +38,11 @@ output "vpc_id" {
   value       = aws_vpc.main.id
 }
 
+module "logging" {
+  source                = "./modules/logging"
+  region                = var.region
+  environment           = var.environment
+  project_prefix        = var.project
+  opensearch_domain_arn = var.opensearch_domain_arn
+}
+
