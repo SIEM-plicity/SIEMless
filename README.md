@@ -86,9 +86,9 @@ Configure centralized logging infrastructure using Terraform to integrate S3 arc
 - IAM role configuration for Firehose and Lambda  
 
 **Evidence:**
-- `LocalOS_LoggingModule_Validation_Success.png`  
-- `Terraform_Firehose_AccessDenied.png`  
-- `Sprint2_Deliverable4_TrelloUpdate.png`  
+- ![Logging Module Validation Success](assets/Sprint2_Deliverables/LocalOS_LoggingModule_Validation_Success.png)
+- ![Firehose Access Denied](assets/Sprint2_Deliverables/Terraform_Firehose_AccessDenied.png)
+- ![VPC Deployment Success](assets/Sprint2_Deliverables/LocalOS_VPCDeployment_Success.png)  
 
 **Status:** Completed (awaiting OpenSearch ingestion test)  
 **Owner:** Latrisha Dodson (Data Quarantine Architect)
