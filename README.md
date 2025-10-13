@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-# SIEMless
+# SIEMplicity
 Cloud Incident Response Automator (IaC + SIEM + Automation)
-=======
-# AWS S3 + Lambda Ingestion Pipeline
 
 Event-driven AWS S3 + Lambda ingestion pipeline built with Terraform and Python. Automates file ingestion, logging, and CloudWatch monitoring via EventBridge triggers.
 
@@ -33,14 +30,16 @@ graph TD
 ## Project Structure
 
 ```
-aws-s3-lambda-ingestion/
+SIEMplicity/
 ├── automation/
 │   └── lambda_handler.py          # Python Lambda handler for S3 processing
 ├── docs/
 │   └── eventbridge_rule_diagram.md # EventBridge routing documentation
-├── infra/
-│   └── s3_lambda_ingest.tf        # Terraform infrastructure configuration
-└── README.md                      # Project documentation
+├── iac/
+│   ├── modules/
+│   │   └── logging/              # Terraform logging module
+│   └── *.tf                      # Terraform infrastructure configuration
+└── README.md                     # Project documentation
 ```
 
 ## Getting Started
@@ -53,7 +52,7 @@ aws-s3-lambda-ingestion/
 
 ### Deployment
 
-1. Navigate to the `infra/` directory
+1. Navigate to the `iac/` directory
 2. Initialize Terraform: `terraform init`
 3. Plan the deployment: `terraform plan`
 4. Apply the infrastructure: `terraform apply`
@@ -73,6 +72,27 @@ Monitor the pipeline through:
 - **CloudWatch Metrics**: Track invocation counts, duration, and error rates
 - **AWS X-Ray**: Enable distributed tracing for detailed performance insights
 
+## Sprint 2 Deliverables
+
+### 🧩 Sprint 2 – Deliverable 4: Logging Module (S3 + Firehose + OpenSearch)
+
+**Objective:**  
+Configure centralized logging infrastructure using Terraform to integrate S3 archival, Kinesis Firehose delivery, and OpenSearch analytics.
+
+**Components Implemented:**
+- S3 Archive Bucket with lifecycle and compression policy  
+- Kinesis Firehose delivery stream for real-time ingestion  
+- Integration with OpenSearch (endpoint pending)  
+- IAM role configuration for Firehose and Lambda  
+
+**Evidence:**
+- `LocalOS_LoggingModule_Validation_Success.png`  
+- `Terraform_Firehose_AccessDenied.png`  
+- `Sprint2_Deliverable4_TrelloUpdate.png`  
+
+**Status:** Completed (awaiting OpenSearch ingestion test)  
+**Owner:** Latrisha Dodson (Data Quarantine Architect)
+
 ## Contributing
 
 This project serves as a foundation for event-driven data processing pipelines. Extend the Lambda handler in `automation/lambda_handler.py` to implement your specific data processing requirements.
@@ -82,4 +102,3 @@ This project serves as a foundation for event-driven data processing pipelines. 
 This repository is tagged with the following topics for easy discovery:
 
 `aws` `terraform` `lambda` `eventbridge` `s3` `cloud-automation` `python` `devsecops` `infrastructure-as-code` `serverless`
->>>>>>> 6afeb3c7fd40f7f845ef1cfd094e82ae85d257fa
