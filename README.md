@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # SIEMplicity
 Cloud Incident Response Automator (IaC + SIEM + Automation)
 
