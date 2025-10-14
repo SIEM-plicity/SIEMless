@@ -1,0 +1,42 @@
+{
+  "version": "0",
+  "id": "abcd1234-5678-90ab-cdef-EXAMPLE11111",
+  "detail-type": "GuardDuty Finding",
+  "source": "aws.guardduty",
+  "account": "111122223333",
+  "time": "2025-10-13T17:25:00Z",
+  "region": "us-east-1",
+  "resources": [],
+  "detail": {
+    "schemaVersion": "2.0",
+    "accountId": "111122223333",
+    "region": "us-east-1",
+    "type": "UnauthorizedAccess:EC2/SSHBruteForce",
+    "service": {
+      "serviceName": "guardduty",
+      "detectorId": "12abc34d567e8f9012g3h456i",
+      "action": {
+        "actionType": "NETWORK_CONNECTION",
+        "networkConnectionAction": {
+          "connectionDirection": "INBOUND",
+          "remoteIpDetails": {
+            "ipAddressV4": "192.0.2.45"
+          }
+        }
+      },
+      "eventFirstSeen": "2025-10-13T17:20:00Z",
+      "eventLastSeen": "2025-10-13T17:23:00Z"
+    },
+    "severity": 8.0,
+    "resource": {
+      "resourceType": "Instance",
+      "instanceDetails": {
+        "instanceId": "i-0abc123de456f7890",
+        "instanceType": "t3.micro",
+        "launchTime": "2025-10-13T14:00:00Z"
+      }
+    },
+    "title": "SSH Brute Force attack detected",
+    "description": "GuardDuty detected unauthorized SSH access attempts."
+  }
+}
