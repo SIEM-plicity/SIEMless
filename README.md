@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # SIEMplicity
 Cloud Incident Response Automator (IaC + SIEM + Automation)
 
@@ -102,3 +103,4 @@ This project serves as a foundation for event-driven data processing pipelines. 
 This repository is tagged with the following topics for easy discovery:
 
 `aws` `terraform` `lambda` `eventbridge` `s3` `cloud-automation` `python` `devsecops` `infrastructure-as-code` `serverless`
+=======
