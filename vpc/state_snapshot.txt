@@ -1,0 +1,511 @@
+# aws_flow_log.vpc_flow_logs:
+resource "aws_flow_log" "vpc_flow_logs" {
+    arn                        = "arn:aws:ec2:us-east-1:214549340906:vpc-flow-log/fl-01a4b6567c4b7f1be"
+    deliver_cross_account_role = null
+    iam_role_arn               = null
+    id                         = "fl-01a4b6567c4b7f1be"
+    log_destination            = "arn:aws:s3:::siemplicity-flow-logs-d25ce39f"
+    log_destination_type       = "s3"
+    log_format                 = "${version} ${account-id} ${interface-id} ${srcaddr} ${dstaddr} ${srcport} ${dstport} ${protocol} ${packets} ${bytes} ${start} ${end} ${action} ${log-status}"
+    log_group_name             = null
+    max_aggregation_interval   = 600
+    tags                       = {
+        "Environment" = "dev"
+        "Name"        = "siemplicity-vpc-flow-logs"
+    }
+    tags_all                   = {
+        "Environment" = "dev"
+        "ManagedBy"   = "Terraform"
+        "Name"        = "siemplicity-vpc-flow-logs"
+        "Owner"       = "Latrisha Dodson"
+        "Project"     = "SIEMplicity"
+        "Purpose"     = "VPC Infrastructure for SIEM/SOC Operations"
+        "Role"        = "Data Quarantine Architect"
+        "Team"        = "SOC-SIEM"
+    }
+    traffic_type               = "ALL"
+    vpc_id                     = "vpc-0be0a0b29369664db"
+
+    destination_options {
+        file_format                = "plain-text"
+        hive_compatible_partitions = false
+        per_hour_partition         = false
+    }
+}
+
+# aws_internet_gateway.siemplicity_igw:
+resource "aws_internet_gateway" "siemplicity_igw" {
+    arn      = "arn:aws:ec2:us-east-1:214549340906:internet-gateway/igw-03fa4453654ca1f14"
+    id       = "igw-03fa4453654ca1f14"
+    owner_id = "214549340906"
+    tags     = {
+        "Environment" = "dev"
+        "Name"        = "siemplicity-igw"
+    }
+    tags_all = {
+        "Environment" = "dev"
+        "ManagedBy"   = "Terraform"
+        "Name"        = "siemplicity-igw"
+        "Owner"       = "Latrisha Dodson"
+        "Project"     = "SIEMplicity"
+        "Purpose"     = "VPC Infrastructure for SIEM/SOC Operations"
+        "Role"        = "Data Quarantine Architect"
+        "Team"        = "SOC-SIEM"
+    }
+    vpc_id   = "vpc-0be0a0b29369664db"
+}
+
+# aws_route_table.private_rt:
+resource "aws_route_table" "private_rt" {
+    arn              = "arn:aws:ec2:us-east-1:214549340906:route-table/rtb-0aa68f0861a5aaba4"
+    id               = "rtb-0aa68f0861a5aaba4"
+    owner_id         = "214549340906"
+    propagating_vgws = []
+    route            = []
+    tags             = {
+        "Environment" = "dev"
+        "Name"        = "siemplicity-private-rt"
+    }
+    tags_all         = {
+        "Environment" = "dev"
+        "ManagedBy"   = "Terraform"
+        "Name"        = "siemplicity-private-rt"
+        "Owner"       = "Latrisha Dodson"
+        "Project"     = "SIEMplicity"
+        "Purpose"     = "VPC Infrastructure for SIEM/SOC Operations"
+        "Role"        = "Data Quarantine Architect"
+        "Team"        = "SOC-SIEM"
+    }
+    vpc_id           = "vpc-0be0a0b29369664db"
+}
+
+# aws_route_table.public_rt:
+resource "aws_route_table" "public_rt" {
+    arn              = "arn:aws:ec2:us-east-1:214549340906:route-table/rtb-05f8abf37963a9039"
+    id               = "rtb-05f8abf37963a9039"
+    owner_id         = "214549340906"
+    propagating_vgws = []
+    route            = [
+        {
+            carrier_gateway_id         = null
+            cidr_block                 = "0.0.0.0/0"
+            core_network_arn           = null
+            destination_prefix_list_id = null
+            egress_only_gateway_id     = null
+            gateway_id                 = "igw-03fa4453654ca1f14"
+            ipv6_cidr_block            = null
+            local_gateway_id           = null
+            nat_gateway_id             = null
+            network_interface_id       = null
+            transit_gateway_id         = null
+            vpc_endpoint_id            = null
+            vpc_peering_connection_id  = null
+        },
+    ]
+    tags             = {
+        "Environment" = "dev"
+        "Name"        = "siemplicity-public-rt"
+    }
+    tags_all         = {
+        "Environment" = "dev"
+        "ManagedBy"   = "Terraform"
+        "Name"        = "siemplicity-public-rt"
+        "Owner"       = "Latrisha Dodson"
+        "Project"     = "SIEMplicity"
+        "Purpose"     = "VPC Infrastructure for SIEM/SOC Operations"
+        "Role"        = "Data Quarantine Architect"
+        "Team"        = "SOC-SIEM"
+    }
+    vpc_id           = "vpc-0be0a0b29369664db"
+}
+
+# aws_route_table_association.private_a:
+resource "aws_route_table_association" "private_a" {
+    gateway_id     = null
+    id             = "rtbassoc-06b481b357fe57361"
+    route_table_id = "rtb-0aa68f0861a5aaba4"
+    subnet_id      = "subnet-0e470f7fc4af21ca7"
+}
+
+# aws_route_table_association.private_b:
+resource "aws_route_table_association" "private_b" {
+    gateway_id     = null
+    id             = "rtbassoc-0497fc8cf62e53a50"
+    route_table_id = "rtb-0aa68f0861a5aaba4"
+    subnet_id      = "subnet-012c8cbe190a0af26"
+}
+
+# aws_route_table_association.public_a:
+resource "aws_route_table_association" "public_a" {
+    gateway_id     = null
+    id             = "rtbassoc-0d1681142a4fd042f"
+    route_table_id = "rtb-05f8abf37963a9039"
+    subnet_id      = "subnet-0f8f059add6ed52e8"
+}
+
+# aws_route_table_association.public_b:
+resource "aws_route_table_association" "public_b" {
+    gateway_id     = null
+    id             = "rtbassoc-0fcdb9ef19b9eabf9"
+    route_table_id = "rtb-05f8abf37963a9039"
+    subnet_id      = "subnet-0902dde80657eaac2"
+}
+
+# aws_s3_bucket.flow_logs_bucket:
+resource "aws_s3_bucket" "flow_logs_bucket" {
+    acceleration_status         = null
+    arn                         = "arn:aws:s3:::siemplicity-flow-logs-d25ce39f"
+    bucket                      = "siemplicity-flow-logs-d25ce39f"
+    bucket_domain_name          = "siemplicity-flow-logs-d25ce39f.s3.amazonaws.com"
+    bucket_prefix               = null
+    bucket_regional_domain_name = "siemplicity-flow-logs-d25ce39f.s3.us-east-1.amazonaws.com"
+    force_destroy               = false
+    hosted_zone_id              = "Z3AQBSTGFYJSTF"
+    id                          = "siemplicity-flow-logs-d25ce39f"
+    object_lock_enabled         = false
+    policy                      = jsonencode(
+        {
+            Id        = "AWSLogDeliveryWrite20150319"
+            Statement = [
+                {
+                    Action    = "s3:PutObject"
+                    Condition = {
+                        ArnLike      = {
+                            "aws:SourceArn" = "arn:aws:logs:us-east-1:214549340906:*"
+                        }
+                        StringEquals = {
+                            "aws:SourceAccount" = "214549340906"
+                            "s3:x-amz-acl"      = "bucket-owner-full-control"
+                        }
+                    }
+                    Effect    = "Allow"
+                    Principal = {
+                        Service = "delivery.logs.amazonaws.com"
+                    }
+                    Resource  = "arn:aws:s3:::siemplicity-flow-logs-d25ce39f/AWSLogs/214549340906/*"
+                    Sid       = "AWSLogDeliveryWrite1"
+                },
+                {
+                    Action    = "s3:GetBucketAcl"
+                    Condition = {
+                        ArnLike      = {
+                            "aws:SourceArn" = "arn:aws:logs:us-east-1:214549340906:*"
+                        }
+                        StringEquals = {
+                            "aws:SourceAccount" = "214549340906"
+                        }
+                    }
+                    Effect    = "Allow"
+                    Principal = {
+                        Service = "delivery.logs.amazonaws.com"
+                    }
+                    Resource  = "arn:aws:s3:::siemplicity-flow-logs-d25ce39f"
+                    Sid       = "AWSLogDeliveryAclCheck1"
+                },
+            ]
+            Version   = "2012-10-17"
+        }
+    )
+    region                      = "us-east-1"
+    request_payer               = "BucketOwner"
+    tags                        = {
+        "Environment" = "dev"
+        "Name"        = "siemplicity-flow-logs"
+    }
+    tags_all                    = {
+        "Environment" = "dev"
+        "ManagedBy"   = "Terraform"
+        "Name"        = "siemplicity-flow-logs"
+        "Owner"       = "Latrisha Dodson"
+        "Project"     = "SIEMplicity"
+        "Purpose"     = "VPC Infrastructure for SIEM/SOC Operations"
+        "Role"        = "Data Quarantine Architect"
+        "Team"        = "SOC-SIEM"
+    }
+
+    grant {
+        id          = "c9b246b4c50a6ab2e5096b3b9b92da468c88b6de1a91cd2f472a20772fd501d9"
+        permissions = [
+            "FULL_CONTROL",
+        ]
+        type        = "CanonicalUser"
+        uri         = null
+    }
+
+    server_side_encryption_configuration {
+        rule {
+            bucket_key_enabled = false
+
+            apply_server_side_encryption_by_default {
+                kms_master_key_id = null
+                sse_algorithm     = "AES256"
+            }
+        }
+    }
+
+    versioning {
+        enabled    = false
+        mfa_delete = false
+    }
+}
+
+# aws_security_group.quarantine_sg:
+resource "aws_security_group" "quarantine_sg" {
+    arn                    = "arn:aws:ec2:us-east-1:214549340906:security-group/sg-03ae7faab295ecde9"
+    description            = "Restricts all inbound/outbound traffic for isolated instances"
+    egress                 = []
+    id                     = "sg-03ae7faab295ecde9"
+    ingress                = []
+    name                   = "siemplicity-quarantine-sg"
+    name_prefix            = null
+    owner_id               = "214549340906"
+    revoke_rules_on_delete = true
+    tags                   = {
+        "Environment" = "dev"
+        "Name"        = "siemplicity-quarantine-sg"
+        "Purpose"     = "Containment"
+    }
+    tags_all               = {
+        "Environment" = "dev"
+        "ManagedBy"   = "Terraform"
+        "Name"        = "siemplicity-quarantine-sg"
+        "Owner"       = "Latrisha Dodson"
+        "Project"     = "SIEMplicity"
+        "Purpose"     = "Containment"
+        "Role"        = "Data Quarantine Architect"
+        "Team"        = "SOC-SIEM"
+    }
+    vpc_id                 = "vpc-0be0a0b29369664db"
+}
+
+# aws_subnet.private_a:
+resource "aws_subnet" "private_a" {
+    arn                                            = "arn:aws:ec2:us-east-1:214549340906:subnet/subnet-0e470f7fc4af21ca7"
+    assign_ipv6_address_on_creation                = false
+    availability_zone                              = "us-east-1a"
+    availability_zone_id                           = "use1-az1"
+    cidr_block                                     = "10.0.10.0/24"
+    customer_owned_ipv4_pool                       = null
+    enable_dns64                                   = false
+    enable_lni_at_device_index                     = 0
+    enable_resource_name_dns_a_record_on_launch    = false
+    enable_resource_name_dns_aaaa_record_on_launch = false
+    id                                             = "subnet-0e470f7fc4af21ca7"
+    ipv6_cidr_block                                = null
+    ipv6_cidr_block_association_id                 = null
+    ipv6_native                                    = false
+    map_customer_owned_ip_on_launch                = false
+    map_public_ip_on_launch                        = false
+    outpost_arn                                    = null
+    owner_id                                       = "214549340906"
+    private_dns_hostname_type_on_launch            = "ip-name"
+    tags                                           = {
+        "Environment" = "dev"
+        "Name"        = "siemplicity-private-a"
+    }
+    tags_all                                       = {
+        "Environment" = "dev"
+        "ManagedBy"   = "Terraform"
+        "Name"        = "siemplicity-private-a"
+        "Owner"       = "Latrisha Dodson"
+        "Project"     = "SIEMplicity"
+        "Purpose"     = "VPC Infrastructure for SIEM/SOC Operations"
+        "Role"        = "Data Quarantine Architect"
+        "Team"        = "SOC-SIEM"
+    }
+    vpc_id                                         = "vpc-0be0a0b29369664db"
+}
+
+# aws_subnet.private_b:
+resource "aws_subnet" "private_b" {
+    arn                                            = "arn:aws:ec2:us-east-1:214549340906:subnet/subnet-012c8cbe190a0af26"
+    assign_ipv6_address_on_creation                = false
+    availability_zone                              = "us-east-1b"
+    availability_zone_id                           = "use1-az2"
+    cidr_block                                     = "10.0.20.0/24"
+    customer_owned_ipv4_pool                       = null
+    enable_dns64                                   = false
+    enable_lni_at_device_index                     = 0
+    enable_resource_name_dns_a_record_on_launch    = false
+    enable_resource_name_dns_aaaa_record_on_launch = false
+    id                                             = "subnet-012c8cbe190a0af26"
+    ipv6_cidr_block                                = null
+    ipv6_cidr_block_association_id                 = null
+    ipv6_native                                    = false
+    map_customer_owned_ip_on_launch                = false
+    map_public_ip_on_launch                        = false
+    outpost_arn                                    = null
+    owner_id                                       = "214549340906"
+    private_dns_hostname_type_on_launch            = "ip-name"
+    tags                                           = {
+        "Environment" = "dev"
+        "Name"        = "siemplicity-private-b"
+    }
+    tags_all                                       = {
+        "Environment" = "dev"
+        "ManagedBy"   = "Terraform"
+        "Name"        = "siemplicity-private-b"
+        "Owner"       = "Latrisha Dodson"
+        "Project"     = "SIEMplicity"
+        "Purpose"     = "VPC Infrastructure for SIEM/SOC Operations"
+        "Role"        = "Data Quarantine Architect"
+        "Team"        = "SOC-SIEM"
+    }
+    vpc_id                                         = "vpc-0be0a0b29369664db"
+}
+
+# aws_subnet.public_a:
+resource "aws_subnet" "public_a" {
+    arn                                            = "arn:aws:ec2:us-east-1:214549340906:subnet/subnet-0f8f059add6ed52e8"
+    assign_ipv6_address_on_creation                = false
+    availability_zone                              = "us-east-1a"
+    availability_zone_id                           = "use1-az1"
+    cidr_block                                     = "10.0.1.0/24"
+    customer_owned_ipv4_pool                       = null
+    enable_dns64                                   = false
+    enable_lni_at_device_index                     = 0
+    enable_resource_name_dns_a_record_on_launch    = false
+    enable_resource_name_dns_aaaa_record_on_launch = false
+    id                                             = "subnet-0f8f059add6ed52e8"
+    ipv6_cidr_block                                = null
+    ipv6_cidr_block_association_id                 = null
+    ipv6_native                                    = false
+    map_customer_owned_ip_on_launch                = false
+    map_public_ip_on_launch                        = true
+    outpost_arn                                    = null
+    owner_id                                       = "214549340906"
+    private_dns_hostname_type_on_launch            = "ip-name"
+    tags                                           = {
+        "Environment" = "dev"
+        "Name"        = "siemplicity-public-a"
+    }
+    tags_all                                       = {
+        "Environment" = "dev"
+        "ManagedBy"   = "Terraform"
+        "Name"        = "siemplicity-public-a"
+        "Owner"       = "Latrisha Dodson"
+        "Project"     = "SIEMplicity"
+        "Purpose"     = "VPC Infrastructure for SIEM/SOC Operations"
+        "Role"        = "Data Quarantine Architect"
+        "Team"        = "SOC-SIEM"
+    }
+    vpc_id                                         = "vpc-0be0a0b29369664db"
+}
+
+# aws_subnet.public_b:
+resource "aws_subnet" "public_b" {
+    arn                                            = "arn:aws:ec2:us-east-1:214549340906:subnet/subnet-0902dde80657eaac2"
+    assign_ipv6_address_on_creation                = false
+    availability_zone                              = "us-east-1b"
+    availability_zone_id                           = "use1-az2"
+    cidr_block                                     = "10.0.2.0/24"
+    customer_owned_ipv4_pool                       = null
+    enable_dns64                                   = false
+    enable_lni_at_device_index                     = 0
+    enable_resource_name_dns_a_record_on_launch    = false
+    enable_resource_name_dns_aaaa_record_on_launch = false
+    id                                             = "subnet-0902dde80657eaac2"
+    ipv6_cidr_block                                = null
+    ipv6_cidr_block_association_id                 = null
+    ipv6_native                                    = false
+    map_customer_owned_ip_on_launch                = false
+    map_public_ip_on_launch                        = true
+    outpost_arn                                    = null
+    owner_id                                       = "214549340906"
+    private_dns_hostname_type_on_launch            = "ip-name"
+    tags                                           = {
+        "Environment" = "dev"
+        "Name"        = "siemplicity-public-b"
+    }
+    tags_all                                       = {
+        "Environment" = "dev"
+        "ManagedBy"   = "Terraform"
+        "Name"        = "siemplicity-public-b"
+        "Owner"       = "Latrisha Dodson"
+        "Project"     = "SIEMplicity"
+        "Purpose"     = "VPC Infrastructure for SIEM/SOC Operations"
+        "Role"        = "Data Quarantine Architect"
+        "Team"        = "SOC-SIEM"
+    }
+    vpc_id                                         = "vpc-0be0a0b29369664db"
+}
+
+# aws_vpc.siemplicity_vpc:
+resource "aws_vpc" "siemplicity_vpc" {
+    arn                                  = "arn:aws:ec2:us-east-1:214549340906:vpc/vpc-0be0a0b29369664db"
+    assign_generated_ipv6_cidr_block     = false
+    cidr_block                           = "10.0.0.0/16"
+    default_network_acl_id               = "acl-01670d80ffa3d1af8"
+    default_route_table_id               = "rtb-0ba13b85330c6eda4"
+    default_security_group_id            = "sg-012578477958a1216"
+    dhcp_options_id                      = "dopt-0bffd8de8cd3ddd26"
+    enable_dns_hostnames                 = true
+    enable_dns_support                   = true
+    enable_network_address_usage_metrics = false
+    id                                   = "vpc-0be0a0b29369664db"
+    instance_tenancy                     = "default"
+    ipv6_association_id                  = null
+    ipv6_cidr_block                      = null
+    ipv6_cidr_block_network_border_group = null
+    ipv6_ipam_pool_id                    = null
+    ipv6_netmask_length                  = 0
+    main_route_table_id                  = "rtb-0ba13b85330c6eda4"
+    owner_id                             = "214549340906"
+    tags                                 = {
+        "Environment" = "dev"
+        "Name"        = "siemplicity-vpc"
+        "Project"     = "SIEMplicity"
+    }
+    tags_all                             = {
+        "Environment" = "dev"
+        "ManagedBy"   = "Terraform"
+        "Name"        = "siemplicity-vpc"
+        "Owner"       = "Latrisha Dodson"
+        "Project"     = "SIEMplicity"
+        "Purpose"     = "VPC Infrastructure for SIEM/SOC Operations"
+        "Role"        = "Data Quarantine Architect"
+        "Team"        = "SOC-SIEM"
+    }
+}
+
+# random_id.bucket_suffix:
+resource "random_id" "bucket_suffix" {
+    b64_std     = "0lzjnw=="
+    b64_url     = "0lzjnw"
+    byte_length = 4
+    dec         = "3529302943"
+    hex         = "d25ce39f"
+    id          = "0lzjnw"
+}
+
+
+Outputs:
+
+availability_zones = [
+    "us-east-1a",
+    "us-east-1b",
+]
+flow_logs_bucket_arn = "arn:aws:s3:::siemplicity-flow-logs-d25ce39f"
+flow_logs_bucket_name = "siemplicity-flow-logs-d25ce39f"
+internet_gateway_id = "igw-03fa4453654ca1f14"
+private_route_table_id = "rtb-0aa68f0861a5aaba4"
+private_subnet_cidrs = [
+    "10.0.10.0/24",
+    "10.0.20.0/24",
+]
+private_subnet_ids = [
+    "subnet-0e470f7fc4af21ca7",
+    "subnet-012c8cbe190a0af26",
+]
+public_route_table_id = "rtb-05f8abf37963a9039"
+public_subnet_cidrs = [
+    "10.0.1.0/24",
+    "10.0.2.0/24",
+]
+public_subnet_ids = [
+    "subnet-0f8f059add6ed52e8",
+    "subnet-0902dde80657eaac2",
+]
+quarantine_security_group_id = "sg-03ae7faab295ecde9"
+vpc_cidr_block = "10.0.0.0/16"
+vpc_id = "vpc-0be0a0b29369664db"
