@@ -1,0 +1,834 @@
+[0m[1mrandom_id.bucket_suffix: Refreshing state... [id=0lzjnw][0m
+[0m[1mrandom_string.bucket_suffix: Refreshing state... [id=i0olubul][0m
+[0m[1maws_iam_role_policy.flow_logs_policy: Refreshing state... [id=SIEMplicity-flow-logs-role:SIEMplicity-flow-logs-policy][0m
+[0m[1maws_route_table_association.private_rta[0]: Refreshing state... [id=rtbassoc-0a08b75c17a20e5e8][0m
+[0m[1maws_route_table_association.private_rta[1]: Refreshing state... [id=rtbassoc-034a8e46ef7cc25ec][0m
+[0m[1maws_s3_bucket_public_access_block.flow_logs_pab: Refreshing state... [id=siemplicity-flow-logs-d25ce39f][0m
+[0m[1maws_subnet.private_subnets[0]: Refreshing state... [id=subnet-054555272625151a0][0m
+[0m[1maws_s3_bucket_versioning.flow_logs_versioning: Refreshing state... [id=siemplicity-flow-logs-d25ce39f][0m
+[0m[1maws_subnet.private_subnets[1]: Refreshing state... [id=subnet-07ca8d2d3189cba7b][0m
+[0m[1maws_subnet.public_subnets[1]: Refreshing state... [id=subnet-0512f2b3dadb5249f][0m
+[0m[1maws_vpc.siemplicity_vpc: Refreshing state... [id=vpc-0be0a0b29369664db][0m
+[0m[1maws_s3_bucket_server_side_encryption_configuration.flow_logs_encryption: Refreshing state... [id=siemplicity-flow-logs-d25ce39f][0m
+[0m[1maws_route_table_association.public_rta[1]: Refreshing state... [id=rtbassoc-08c9313de5b762436][0m
+[0m[1maws_iam_role.flow_logs_role: Refreshing state... [id=SIEMplicity-flow-logs-role][0m
+[0m[1maws_subnet.public_subnets[0]: Refreshing state... [id=subnet-005bb92bca3489f24][0m
+[0m[1maws_route_table_association.public_rta[0]: Refreshing state... [id=rtbassoc-00a4a9ce5f3986cdb][0m
+[0m[1maws_internet_gateway.siemplicity_igw: Refreshing state... [id=igw-03fa4453654ca1f14][0m
+[0m[1maws_s3_bucket.flow_logs_bucket: Refreshing state... [id=siemplicity-flow-logs-d25ce39f][0m
+[0m[1maws_route_table.private_rt: Refreshing state... [id=rtb-0aa68f0861a5aaba4][0m
+[0m[1maws_security_group.quarantine_sg: Refreshing state... [id=sg-09dbfce1f2fab69e9][0m
+[0m[1maws_route_table.public_rt: Refreshing state... [id=rtb-05f8abf37963a9039][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create[0m
+  [33m~[0m update in-place[0m
+  [31m-[0m destroy[0m
+[31m-[0m/[32m+[0m destroy and then create replacement[0m
+
+Terraform will perform the following actions:
+
+[1m  # aws_flow_log.vpc_flow_logs[0m will be created
+[0m  [32m+[0m[0m resource "aws_flow_log" "vpc_flow_logs" {
+      [32m+[0m[0m arn                      = (known after apply)
+      [32m+[0m[0m id                       = (known after apply)
+      [32m+[0m[0m log_destination          = "arn:aws:s3:::siemplicity-flow-logs-d25ce39f"
+      [32m+[0m[0m log_destination_type     = "s3"
+      [32m+[0m[0m log_format               = (known after apply)
+      [32m+[0m[0m log_group_name           = (known after apply)
+      [32m+[0m[0m max_aggregation_interval = 600
+      [32m+[0m[0m tags                     = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "siemplicity-vpc-flow-logs"
+        }
+      [32m+[0m[0m tags_all                 = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "siemplicity-vpc-flow-logs"
+          [32m+[0m[0m "Owner"       = "Latrisha Dodson"
+          [32m+[0m[0m "Project"     = "SIEMplicity"
+          [32m+[0m[0m "Purpose"     = "VPC Infrastructure for SIEM/SOC Operations"
+          [32m+[0m[0m "Role"        = "Data Quarantine Architect"
+          [32m+[0m[0m "Team"        = "SOC-SIEM"
+        }
+      [32m+[0m[0m traffic_type             = "ALL"
+      [32m+[0m[0m vpc_id                   = (known after apply)
+    }
+
+[1m  # aws_iam_role.flow_logs_role[0m will be [1m[31mdestroyed[0m
+  # (because aws_iam_role.flow_logs_role is not in configuration)
+[0m  [31m-[0m[0m resource "aws_iam_role" "flow_logs_role" {
+      [31m-[0m[0m arn                   = "arn:aws:iam::214549340906:role/SIEMplicity-flow-logs-role" [90m-> null[0m[0m
+      [31m-[0m[0m assume_role_policy    = jsonencode(
+            {
+              [31m-[0m[0m Statement = [
+                  [31m-[0m[0m {
+                      [31m-[0m[0m Action    = "sts:AssumeRole"
+                      [31m-[0m[0m Effect    = "Allow"
+                      [31m-[0m[0m Principal = {
+                          [31m-[0m[0m Service = "vpc-flow-logs.amazonaws.com"
+                        }
+                    },
+                ]
+              [31m-[0m[0m Version   = "2012-10-17"
+            }
+        ) [90m-> null[0m[0m
+      [31m-[0m[0m create_date           = "2025-10-16T02:14:21Z" [90m-> null[0m[0m
+      [31m-[0m[0m force_detach_policies = false [90m-> null[0m[0m
+      [31m-[0m[0m id                    = "SIEMplicity-flow-logs-role" [90m-> null[0m[0m
+      [31m-[0m[0m managed_policy_arns   = [] [90m-> null[0m[0m
+      [31m-[0m[0m max_session_duration  = 3600 [90m-> null[0m[0m
+      [31m-[0m[0m name                  = "SIEMplicity-flow-logs-role" [90m-> null[0m[0m
+      [31m-[0m[0m path                  = "/" [90m-> null[0m[0m
+      [31m-[0m[0m tags                  = {
+          [31m-[0m[0m "Name" = "SIEMplicity-Flow-Logs-Role"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all              = {
+          [31m-[0m[0m "Environment" = "Development"
+          [31m-[0m[0m "ManagedBy"   = "Terraform"
+          [31m-[0m[0m "Name"        = "SIEMplicity-Flow-Logs-Role"
+          [31m-[0m[0m "Owner"       = "Latrisha Dodson"
+          [31m-[0m[0m "Project"     = "SIEMplicity"
+          [31m-[0m[0m "Purpose"     = "VPC Infrastructure for SIEM/SOC Operations"
+          [31m-[0m[0m "Role"        = "Data Quarantine Architect"
+          [31m-[0m[0m "Team"        = "SOC-SIEM"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m unique_id             = "AROATD5BDELVF7X7Q37QQ" [90m-> null[0m[0m
+        [90m# (3 unchanged attributes hidden)[0m[0m
+
+      [31m-[0m[0m inline_policy {
+          [31m-[0m[0m name   = "SIEMplicity-flow-logs-policy" [90m-> null[0m[0m
+          [31m-[0m[0m policy = jsonencode(
+                {
+                  [31m-[0m[0m Statement = [
+                      [31m-[0m[0m {
+                          [31m-[0m[0m Action   = [
+                              [31m-[0m[0m "logs:CreateLogGroup",
+                              [31m-[0m[0m "logs:CreateLogStream",
+                              [31m-[0m[0m "logs:PutLogEvents",
+                              [31m-[0m[0m "logs:DescribeLogGroups",
+                              [31m-[0m[0m "logs:DescribeLogStreams",
+                            ]
+                          [31m-[0m[0m Effect   = "Allow"
+                          [31m-[0m[0m Resource = "*"
+                        },
+                    ]
+                  [31m-[0m[0m Version   = "2012-10-17"
+                }
+            ) [90m-> null[0m[0m
+        }
+    }
+
+[1m  # aws_iam_role_policy.flow_logs_policy[0m will be [1m[31mdestroyed[0m
+  # (because aws_iam_role_policy.flow_logs_policy is not in configuration)
+[0m  [31m-[0m[0m resource "aws_iam_role_policy" "flow_logs_policy" {
+      [31m-[0m[0m id          = "SIEMplicity-flow-logs-role:SIEMplicity-flow-logs-policy" [90m-> null[0m[0m
+      [31m-[0m[0m name        = "SIEMplicity-flow-logs-policy" [90m-> null[0m[0m
+      [31m-[0m[0m policy      = jsonencode(
+            {
+              [31m-[0m[0m Statement = [
+                  [31m-[0m[0m {
+                      [31m-[0m[0m Action   = [
+                          [31m-[0m[0m "logs:CreateLogGroup",
+                          [31m-[0m[0m "logs:CreateLogStream",
+                          [31m-[0m[0m "logs:PutLogEvents",
+                          [31m-[0m[0m "logs:DescribeLogGroups",
+                          [31m-[0m[0m "logs:DescribeLogStreams",
+                        ]
+                      [31m-[0m[0m Effect   = "Allow"
+                      [31m-[0m[0m Resource = "*"
+                    },
+                ]
+              [31m-[0m[0m Version   = "2012-10-17"
+            }
+        ) [90m-> null[0m[0m
+      [31m-[0m[0m role        = "SIEMplicity-flow-logs-role" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+    }
+
+[1m  # aws_internet_gateway.igw[0m will be created
+[0m  [32m+[0m[0m resource "aws_internet_gateway" "igw" {
+      [32m+[0m[0m arn      = (known after apply)
+      [32m+[0m[0m id       = (known after apply)
+      [32m+[0m[0m owner_id = (known after apply)
+      [32m+[0m[0m tags     = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "siemplicity-igw"
+        }
+      [32m+[0m[0m tags_all = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "siemplicity-igw"
+          [32m+[0m[0m "Owner"       = "Latrisha Dodson"
+          [32m+[0m[0m "Project"     = "SIEMplicity"
+          [32m+[0m[0m "Purpose"     = "VPC Infrastructure for SIEM/SOC Operations"
+          [32m+[0m[0m "Role"        = "Data Quarantine Architect"
+          [32m+[0m[0m "Team"        = "SOC-SIEM"
+        }
+      [32m+[0m[0m vpc_id   = (known after apply)
+    }
+
+[1m  # aws_internet_gateway.siemplicity_igw[0m will be [1m[31mdestroyed[0m
+  # (because aws_internet_gateway.siemplicity_igw is not in configuration)
+[0m  [31m-[0m[0m resource "aws_internet_gateway" "siemplicity_igw" {
+      [31m-[0m[0m arn      = "arn:aws:ec2:us-east-1:214549340906:internet-gateway/igw-03fa4453654ca1f14" [90m-> null[0m[0m
+      [31m-[0m[0m id       = "igw-03fa4453654ca1f14" [90m-> null[0m[0m
+      [31m-[0m[0m owner_id = "214549340906" [90m-> null[0m[0m
+      [31m-[0m[0m tags     = {
+          [31m-[0m[0m "Name" = "SIEMplicity-IGW"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all = {
+          [31m-[0m[0m "Environment" = "Development"
+          [31m-[0m[0m "ManagedBy"   = "Terraform"
+          [31m-[0m[0m "Name"        = "SIEMplicity-IGW"
+          [31m-[0m[0m "Owner"       = "Latrisha Dodson"
+          [31m-[0m[0m "Project"     = "SIEMplicity"
+          [31m-[0m[0m "Purpose"     = "VPC Infrastructure for SIEM/SOC Operations"
+          [31m-[0m[0m "Role"        = "Data Quarantine Architect"
+          [31m-[0m[0m "Team"        = "SOC-SIEM"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m vpc_id   = "vpc-0be0a0b29369664db" [90m-> null[0m[0m
+    }
+
+[1m  # aws_route_table.private_rt[0m must be [1m[31mreplaced[0m
+[0m[31m-[0m/[32m+[0m[0m resource "aws_route_table" "private_rt" {
+      [33m~[0m[0m arn              = "arn:aws:ec2:us-east-1:214549340906:route-table/rtb-0aa68f0861a5aaba4" -> (known after apply)
+      [33m~[0m[0m id               = "rtb-0aa68f0861a5aaba4" -> (known after apply)
+      [33m~[0m[0m owner_id         = "214549340906" -> (known after apply)
+      [33m~[0m[0m propagating_vgws = [] -> (known after apply)
+      [33m~[0m[0m route            = [] -> (known after apply)
+      [33m~[0m[0m tags             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [33m~[0m[0m "Name"        = "SIEMplicity-Private-RT" [33m->[0m[0m "siemplicity-private-rt"
+        }
+      [33m~[0m[0m tags_all         = {
+          [33m~[0m[0m "Environment" = "Development" [33m->[0m[0m "dev"
+          [33m~[0m[0m "Name"        = "SIEMplicity-Private-RT" [33m->[0m[0m "siemplicity-private-rt"
+            [90m# (6 unchanged elements hidden)[0m[0m
+        }
+      [33m~[0m[0m vpc_id           = "vpc-0be0a0b29369664db" -> (known after apply) [31m# forces replacement[0m[0m
+    }
+
+[1m  # aws_route_table.public_rt[0m must be [1m[31mreplaced[0m
+[0m[31m-[0m/[32m+[0m[0m resource "aws_route_table" "public_rt" {
+      [33m~[0m[0m arn              = "arn:aws:ec2:us-east-1:214549340906:route-table/rtb-05f8abf37963a9039" -> (known after apply)
+      [33m~[0m[0m id               = "rtb-05f8abf37963a9039" -> (known after apply)
+      [33m~[0m[0m owner_id         = "214549340906" -> (known after apply)
+      [33m~[0m[0m propagating_vgws = [] -> (known after apply)
+      [33m~[0m[0m route            = [
+          [31m-[0m[0m {
+              [31m-[0m[0m cidr_block                 = "0.0.0.0/0"
+              [31m-[0m[0m gateway_id                 = "igw-03fa4453654ca1f14"
+                [90m# (11 unchanged attributes hidden)[0m[0m
+            },
+          [32m+[0m[0m {
+              [32m+[0m[0m cidr_block                 = "0.0.0.0/0"
+              [32m+[0m[0m gateway_id                 = (known after apply)
+                [90m# (11 unchanged attributes hidden)[0m[0m
+            },
+        ]
+      [33m~[0m[0m tags             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [33m~[0m[0m "Name"        = "SIEMplicity-Public-RT" [33m->[0m[0m "siemplicity-public-rt"
+        }
+      [33m~[0m[0m tags_all         = {
+          [33m~[0m[0m "Environment" = "Development" [33m->[0m[0m "dev"
+          [33m~[0m[0m "Name"        = "SIEMplicity-Public-RT" [33m->[0m[0m "siemplicity-public-rt"
+            [90m# (6 unchanged elements hidden)[0m[0m
+        }
+      [33m~[0m[0m vpc_id           = "vpc-0be0a0b29369664db" -> (known after apply) [31m# forces replacement[0m[0m
+    }
+
+[1m  # aws_route_table_association.private_a[0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table_association" "private_a" {
+      [32m+[0m[0m id             = (known after apply)
+      [32m+[0m[0m route_table_id = (known after apply)
+      [32m+[0m[0m subnet_id      = (known after apply)
+    }
+
+[1m  # aws_route_table_association.private_b[0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table_association" "private_b" {
+      [32m+[0m[0m id             = (known after apply)
+      [32m+[0m[0m route_table_id = (known after apply)
+      [32m+[0m[0m subnet_id      = (known after apply)
+    }
+
+[1m  # aws_route_table_association.private_rta[0][0m will be [1m[31mdestroyed[0m
+  # (because aws_route_table_association.private_rta is not in configuration)
+[0m  [31m-[0m[0m resource "aws_route_table_association" "private_rta" {
+      [31m-[0m[0m id             = "rtbassoc-0a08b75c17a20e5e8" [90m-> null[0m[0m
+      [31m-[0m[0m route_table_id = "rtb-0aa68f0861a5aaba4" [90m-> null[0m[0m
+      [31m-[0m[0m subnet_id      = "subnet-054555272625151a0" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+    }
+
+[1m  # aws_route_table_association.private_rta[1][0m will be [1m[31mdestroyed[0m
+  # (because aws_route_table_association.private_rta is not in configuration)
+[0m  [31m-[0m[0m resource "aws_route_table_association" "private_rta" {
+      [31m-[0m[0m id             = "rtbassoc-034a8e46ef7cc25ec" [90m-> null[0m[0m
+      [31m-[0m[0m route_table_id = "rtb-0aa68f0861a5aaba4" [90m-> null[0m[0m
+      [31m-[0m[0m subnet_id      = "subnet-07ca8d2d3189cba7b" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+    }
+
+[1m  # aws_route_table_association.public_a[0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table_association" "public_a" {
+      [32m+[0m[0m id             = (known after apply)
+      [32m+[0m[0m route_table_id = (known after apply)
+      [32m+[0m[0m subnet_id      = (known after apply)
+    }
+
+[1m  # aws_route_table_association.public_b[0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table_association" "public_b" {
+      [32m+[0m[0m id             = (known after apply)
+      [32m+[0m[0m route_table_id = (known after apply)
+      [32m+[0m[0m subnet_id      = (known after apply)
+    }
+
+[1m  # aws_route_table_association.public_rta[0][0m will be [1m[31mdestroyed[0m
+  # (because aws_route_table_association.public_rta is not in configuration)
+[0m  [31m-[0m[0m resource "aws_route_table_association" "public_rta" {
+      [31m-[0m[0m id             = "rtbassoc-00a4a9ce5f3986cdb" [90m-> null[0m[0m
+      [31m-[0m[0m route_table_id = "rtb-05f8abf37963a9039" [90m-> null[0m[0m
+      [31m-[0m[0m subnet_id      = "subnet-005bb92bca3489f24" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+    }
+
+[1m  # aws_route_table_association.public_rta[1][0m will be [1m[31mdestroyed[0m
+  # (because aws_route_table_association.public_rta is not in configuration)
+[0m  [31m-[0m[0m resource "aws_route_table_association" "public_rta" {
+      [31m-[0m[0m id             = "rtbassoc-08c9313de5b762436" [90m-> null[0m[0m
+      [31m-[0m[0m route_table_id = "rtb-05f8abf37963a9039" [90m-> null[0m[0m
+      [31m-[0m[0m subnet_id      = "subnet-0512f2b3dadb5249f" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+    }
+
+[1m  # aws_s3_bucket.flow_logs_bucket[0m will be updated in-place
+[0m  [33m~[0m[0m resource "aws_s3_bucket" "flow_logs_bucket" {
+        id                          = "siemplicity-flow-logs-d25ce39f"
+      [33m~[0m[0m tags                        = {
+            "Environment" = "dev"
+            "Name"        = "siemplicity-flow-logs"
+          [31m-[0m[0m "Project"     = "SIEMplicity" [90m-> null[0m[0m
+        }
+        [90m# (13 unchanged attributes hidden)[0m[0m
+
+        [90m# (3 unchanged blocks hidden)[0m[0m
+    }
+
+[1m  # aws_s3_bucket_public_access_block.flow_logs_pab[0m will be [1m[31mdestroyed[0m
+  # (because aws_s3_bucket_public_access_block.flow_logs_pab is not in configuration)
+[0m  [31m-[0m[0m resource "aws_s3_bucket_public_access_block" "flow_logs_pab" {
+      [31m-[0m[0m block_public_acls       = true [90m-> null[0m[0m
+      [31m-[0m[0m block_public_policy     = true [90m-> null[0m[0m
+      [31m-[0m[0m bucket                  = "siemplicity-flow-logs-d25ce39f" [90m-> null[0m[0m
+      [31m-[0m[0m id                      = "siemplicity-flow-logs-d25ce39f" [90m-> null[0m[0m
+      [31m-[0m[0m ignore_public_acls      = true [90m-> null[0m[0m
+      [31m-[0m[0m restrict_public_buckets = true [90m-> null[0m[0m
+    }
+
+[1m  # aws_s3_bucket_server_side_encryption_configuration.flow_logs_encryption[0m will be [1m[31mdestroyed[0m
+  # (because aws_s3_bucket_server_side_encryption_configuration.flow_logs_encryption is not in configuration)
+[0m  [31m-[0m[0m resource "aws_s3_bucket_server_side_encryption_configuration" "flow_logs_encryption" {
+      [31m-[0m[0m bucket                = "siemplicity-flow-logs-d25ce39f" [90m-> null[0m[0m
+      [31m-[0m[0m id                    = "siemplicity-flow-logs-d25ce39f" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+
+      [31m-[0m[0m rule {
+          [31m-[0m[0m bucket_key_enabled = false [90m-> null[0m[0m
+
+          [31m-[0m[0m apply_server_side_encryption_by_default {
+              [31m-[0m[0m sse_algorithm     = "AES256" [90m-> null[0m[0m
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            }
+        }
+    }
+
+[1m  # aws_s3_bucket_versioning.flow_logs_versioning[0m will be [1m[31mdestroyed[0m
+  # (because aws_s3_bucket_versioning.flow_logs_versioning is not in configuration)
+[0m  [31m-[0m[0m resource "aws_s3_bucket_versioning" "flow_logs_versioning" {
+      [31m-[0m[0m bucket                = "siemplicity-flow-logs-d25ce39f" [90m-> null[0m[0m
+      [31m-[0m[0m id                    = "siemplicity-flow-logs-d25ce39f" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+
+      [31m-[0m[0m versioning_configuration {
+          [31m-[0m[0m status     = "Enabled" [90m-> null[0m[0m
+            [90m# (1 unchanged attribute hidden)[0m[0m
+        }
+    }
+
+[1m  # aws_security_group.quarantine_sg[0m must be [1m[31mreplaced[0m
+[0m[31m-[0m/[32m+[0m[0m resource "aws_security_group" "quarantine_sg" {
+      [33m~[0m[0m arn                    = "arn:aws:ec2:us-east-1:214549340906:security-group/sg-09dbfce1f2fab69e9" -> (known after apply)
+      [33m~[0m[0m description            = "Security group for SIEMplicity quarantine operations" [33m->[0m[0m "Restricts all inbound/outbound traffic for isolated instances" [31m# forces replacement[0m[0m
+      [33m~[0m[0m egress                 = [
+          [31m-[0m[0m {
+              [31m-[0m[0m cidr_blocks      = [
+                  [31m-[0m[0m "0.0.0.0/0",
+                ]
+              [31m-[0m[0m description      = "All outbound traffic"
+              [31m-[0m[0m from_port        = 0
+              [31m-[0m[0m ipv6_cidr_blocks = []
+              [31m-[0m[0m prefix_list_ids  = []
+              [31m-[0m[0m protocol         = "-1"
+              [31m-[0m[0m security_groups  = []
+              [31m-[0m[0m self             = false
+              [31m-[0m[0m to_port          = 0
+            },
+        ] -> (known after apply)
+      [33m~[0m[0m id                     = "sg-09dbfce1f2fab69e9" -> (known after apply)
+      [33m~[0m[0m ingress                = [
+          [31m-[0m[0m {
+              [31m-[0m[0m cidr_blocks      = [
+                  [31m-[0m[0m "0.0.0.0/0",
+                ]
+              [31m-[0m[0m description      = "HTTP for monitoring"
+              [31m-[0m[0m from_port        = 80
+              [31m-[0m[0m ipv6_cidr_blocks = []
+              [31m-[0m[0m prefix_list_ids  = []
+              [31m-[0m[0m protocol         = "tcp"
+              [31m-[0m[0m security_groups  = []
+              [31m-[0m[0m self             = false
+              [31m-[0m[0m to_port          = 80
+            },
+          [31m-[0m[0m {
+              [31m-[0m[0m cidr_blocks      = [
+                  [31m-[0m[0m "0.0.0.0/0",
+                ]
+              [31m-[0m[0m description      = "HTTPS for SIEM data ingestion"
+              [31m-[0m[0m from_port        = 443
+              [31m-[0m[0m ipv6_cidr_blocks = []
+              [31m-[0m[0m prefix_list_ids  = []
+              [31m-[0m[0m protocol         = "tcp"
+              [31m-[0m[0m security_groups  = []
+              [31m-[0m[0m self             = false
+              [31m-[0m[0m to_port          = 443
+            },
+          [31m-[0m[0m {
+              [31m-[0m[0m cidr_blocks      = [
+                  [31m-[0m[0m "10.0.0.0/16",
+                ]
+              [31m-[0m[0m description      = "SSH for administration"
+              [31m-[0m[0m from_port        = 22
+              [31m-[0m[0m ipv6_cidr_blocks = []
+              [31m-[0m[0m prefix_list_ids  = []
+              [31m-[0m[0m protocol         = "tcp"
+              [31m-[0m[0m security_groups  = []
+              [31m-[0m[0m self             = false
+              [31m-[0m[0m to_port          = 22
+            },
+        ] -> (known after apply)
+      [33m~[0m[0m name                   = "SIEMplicity-quarantine-20251016021417428500000002" [33m->[0m[0m "siemplicity-quarantine-sg" [31m# forces replacement[0m[0m
+      [33m~[0m[0m name_prefix            = "SIEMplicity-quarantine-" -> (known after apply)
+      [33m~[0m[0m owner_id               = "214549340906" -> (known after apply)
+      [33m~[0m[0m revoke_rules_on_delete = false [33m->[0m[0m true
+      [33m~[0m[0m tags                   = {
+          [31m-[0m[0m "Description" = "Security group for quarantine operations" [90m-> null[0m[0m
+          [32m+[0m[0m "Environment" = "dev"
+          [33m~[0m[0m "Name"        = "SIEMplicity-Quarantine-SG" [33m->[0m[0m "siemplicity-quarantine-sg"
+          [32m+[0m[0m "Purpose"     = "Containment"
+        }
+      [33m~[0m[0m tags_all               = {
+          [31m-[0m[0m "Description" = "Security group for quarantine operations" [90m-> null[0m[0m
+          [33m~[0m[0m "Environment" = "Development" [33m->[0m[0m "dev"
+          [33m~[0m[0m "Name"        = "SIEMplicity-Quarantine-SG" [33m->[0m[0m "siemplicity-quarantine-sg"
+          [33m~[0m[0m "Purpose"     = "VPC Infrastructure for SIEM/SOC Operations" [33m->[0m[0m "Containment"
+            [90m# (5 unchanged elements hidden)[0m[0m
+        }
+      [33m~[0m[0m vpc_id                 = "vpc-0be0a0b29369664db" -> (known after apply) [31m# forces replacement[0m[0m
+    }
+
+[1m  # aws_subnet.private_a[0m will be created
+[0m  [32m+[0m[0m resource "aws_subnet" "private_a" {
+      [32m+[0m[0m arn                                            = (known after apply)
+      [32m+[0m[0m assign_ipv6_address_on_creation                = false
+      [32m+[0m[0m availability_zone                              = "us-east-1a"
+      [32m+[0m[0m availability_zone_id                           = (known after apply)
+      [32m+[0m[0m cidr_block                                     = "10.0.10.0/24"
+      [32m+[0m[0m enable_dns64                                   = false
+      [32m+[0m[0m enable_resource_name_dns_a_record_on_launch    = false
+      [32m+[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false
+      [32m+[0m[0m id                                             = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_association_id                 = (known after apply)
+      [32m+[0m[0m ipv6_native                                    = false
+      [32m+[0m[0m map_public_ip_on_launch                        = false
+      [32m+[0m[0m owner_id                                       = (known after apply)
+      [32m+[0m[0m private_dns_hostname_type_on_launch            = (known after apply)
+      [32m+[0m[0m tags                                           = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "siemplicity-private-a"
+        }
+      [32m+[0m[0m tags_all                                       = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "siemplicity-private-a"
+          [32m+[0m[0m "Owner"       = "Latrisha Dodson"
+          [32m+[0m[0m "Project"     = "SIEMplicity"
+          [32m+[0m[0m "Purpose"     = "VPC Infrastructure for SIEM/SOC Operations"
+          [32m+[0m[0m "Role"        = "Data Quarantine Architect"
+          [32m+[0m[0m "Team"        = "SOC-SIEM"
+        }
+      [32m+[0m[0m vpc_id                                         = (known after apply)
+    }
+
+[1m  # aws_subnet.private_b[0m will be created
+[0m  [32m+[0m[0m resource "aws_subnet" "private_b" {
+      [32m+[0m[0m arn                                            = (known after apply)
+      [32m+[0m[0m assign_ipv6_address_on_creation                = false
+      [32m+[0m[0m availability_zone                              = "us-east-1b"
+      [32m+[0m[0m availability_zone_id                           = (known after apply)
+      [32m+[0m[0m cidr_block                                     = "10.0.20.0/24"
+      [32m+[0m[0m enable_dns64                                   = false
+      [32m+[0m[0m enable_resource_name_dns_a_record_on_launch    = false
+      [32m+[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false
+      [32m+[0m[0m id                                             = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_association_id                 = (known after apply)
+      [32m+[0m[0m ipv6_native                                    = false
+      [32m+[0m[0m map_public_ip_on_launch                        = false
+      [32m+[0m[0m owner_id                                       = (known after apply)
+      [32m+[0m[0m private_dns_hostname_type_on_launch            = (known after apply)
+      [32m+[0m[0m tags                                           = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "siemplicity-private-b"
+        }
+      [32m+[0m[0m tags_all                                       = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "siemplicity-private-b"
+          [32m+[0m[0m "Owner"       = "Latrisha Dodson"
+          [32m+[0m[0m "Project"     = "SIEMplicity"
+          [32m+[0m[0m "Purpose"     = "VPC Infrastructure for SIEM/SOC Operations"
+          [32m+[0m[0m "Role"        = "Data Quarantine Architect"
+          [32m+[0m[0m "Team"        = "SOC-SIEM"
+        }
+      [32m+[0m[0m vpc_id                                         = (known after apply)
+    }
+
+[1m  # aws_subnet.private_subnets[0][0m will be [1m[31mdestroyed[0m
+  # (because aws_subnet.private_subnets is not in configuration)
+[0m  [31m-[0m[0m resource "aws_subnet" "private_subnets" {
+      [31m-[0m[0m arn                                            = "arn:aws:ec2:us-east-1:214549340906:subnet/subnet-054555272625151a0" [90m-> null[0m[0m
+      [31m-[0m[0m assign_ipv6_address_on_creation                = false [90m-> null[0m[0m
+      [31m-[0m[0m availability_zone                              = "us-east-1a" [90m-> null[0m[0m
+      [31m-[0m[0m availability_zone_id                           = "use1-az1" [90m-> null[0m[0m
+      [31m-[0m[0m cidr_block                                     = "10.0.10.0/24" [90m-> null[0m[0m
+      [31m-[0m[0m enable_dns64                                   = false [90m-> null[0m[0m
+      [31m-[0m[0m enable_lni_at_device_index                     = 0 [90m-> null[0m[0m
+      [31m-[0m[0m enable_resource_name_dns_a_record_on_launch    = false [90m-> null[0m[0m
+      [31m-[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false [90m-> null[0m[0m
+      [31m-[0m[0m id                                             = "subnet-054555272625151a0" [90m-> null[0m[0m
+      [31m-[0m[0m ipv6_native                                    = false [90m-> null[0m[0m
+      [31m-[0m[0m map_customer_owned_ip_on_launch                = false [90m-> null[0m[0m
+      [31m-[0m[0m map_public_ip_on_launch                        = false [90m-> null[0m[0m
+      [31m-[0m[0m owner_id                                       = "214549340906" [90m-> null[0m[0m
+      [31m-[0m[0m private_dns_hostname_type_on_launch            = "ip-name" [90m-> null[0m[0m
+      [31m-[0m[0m tags                                           = {
+          [31m-[0m[0m "Name" = "SIEMplicity-Private-Subnet-1"
+          [31m-[0m[0m "Type" = "Private"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all                                       = {
+          [31m-[0m[0m "Environment" = "Development"
+          [31m-[0m[0m "ManagedBy"   = "Terraform"
+          [31m-[0m[0m "Name"        = "SIEMplicity-Private-Subnet-1"
+          [31m-[0m[0m "Owner"       = "Latrisha Dodson"
+          [31m-[0m[0m "Project"     = "SIEMplicity"
+          [31m-[0m[0m "Purpose"     = "VPC Infrastructure for SIEM/SOC Operations"
+          [31m-[0m[0m "Role"        = "Data Quarantine Architect"
+          [31m-[0m[0m "Team"        = "SOC-SIEM"
+          [31m-[0m[0m "Type"        = "Private"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m vpc_id                                         = "vpc-0be0a0b29369664db" [90m-> null[0m[0m
+        [90m# (4 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # aws_subnet.private_subnets[1][0m will be [1m[31mdestroyed[0m
+  # (because aws_subnet.private_subnets is not in configuration)
+[0m  [31m-[0m[0m resource "aws_subnet" "private_subnets" {
+      [31m-[0m[0m arn                                            = "arn:aws:ec2:us-east-1:214549340906:subnet/subnet-07ca8d2d3189cba7b" [90m-> null[0m[0m
+      [31m-[0m[0m assign_ipv6_address_on_creation                = false [90m-> null[0m[0m
+      [31m-[0m[0m availability_zone                              = "us-east-1b" [90m-> null[0m[0m
+      [31m-[0m[0m availability_zone_id                           = "use1-az2" [90m-> null[0m[0m
+      [31m-[0m[0m cidr_block                                     = "10.0.20.0/24" [90m-> null[0m[0m
+      [31m-[0m[0m enable_dns64                                   = false [90m-> null[0m[0m
+      [31m-[0m[0m enable_lni_at_device_index                     = 0 [90m-> null[0m[0m
+      [31m-[0m[0m enable_resource_name_dns_a_record_on_launch    = false [90m-> null[0m[0m
+      [31m-[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false [90m-> null[0m[0m
+      [31m-[0m[0m id                                             = "subnet-07ca8d2d3189cba7b" [90m-> null[0m[0m
+      [31m-[0m[0m ipv6_native                                    = false [90m-> null[0m[0m
+      [31m-[0m[0m map_customer_owned_ip_on_launch                = false [90m-> null[0m[0m
+      [31m-[0m[0m map_public_ip_on_launch                        = false [90m-> null[0m[0m
+      [31m-[0m[0m owner_id                                       = "214549340906" [90m-> null[0m[0m
+      [31m-[0m[0m private_dns_hostname_type_on_launch            = "ip-name" [90m-> null[0m[0m
+      [31m-[0m[0m tags                                           = {
+          [31m-[0m[0m "Name" = "SIEMplicity-Private-Subnet-2"
+          [31m-[0m[0m "Type" = "Private"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all                                       = {
+          [31m-[0m[0m "Environment" = "Development"
+          [31m-[0m[0m "ManagedBy"   = "Terraform"
+          [31m-[0m[0m "Name"        = "SIEMplicity-Private-Subnet-2"
+          [31m-[0m[0m "Owner"       = "Latrisha Dodson"
+          [31m-[0m[0m "Project"     = "SIEMplicity"
+          [31m-[0m[0m "Purpose"     = "VPC Infrastructure for SIEM/SOC Operations"
+          [31m-[0m[0m "Role"        = "Data Quarantine Architect"
+          [31m-[0m[0m "Team"        = "SOC-SIEM"
+          [31m-[0m[0m "Type"        = "Private"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m vpc_id                                         = "vpc-0be0a0b29369664db" [90m-> null[0m[0m
+        [90m# (4 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # aws_subnet.public_a[0m will be created
+[0m  [32m+[0m[0m resource "aws_subnet" "public_a" {
+      [32m+[0m[0m arn                                            = (known after apply)
+      [32m+[0m[0m assign_ipv6_address_on_creation                = false
+      [32m+[0m[0m availability_zone                              = "us-east-1a"
+      [32m+[0m[0m availability_zone_id                           = (known after apply)
+      [32m+[0m[0m cidr_block                                     = "10.0.1.0/24"
+      [32m+[0m[0m enable_dns64                                   = false
+      [32m+[0m[0m enable_resource_name_dns_a_record_on_launch    = false
+      [32m+[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false
+      [32m+[0m[0m id                                             = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_association_id                 = (known after apply)
+      [32m+[0m[0m ipv6_native                                    = false
+      [32m+[0m[0m map_public_ip_on_launch                        = true
+      [32m+[0m[0m owner_id                                       = (known after apply)
+      [32m+[0m[0m private_dns_hostname_type_on_launch            = (known after apply)
+      [32m+[0m[0m tags                                           = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "siemplicity-public-a"
+        }
+      [32m+[0m[0m tags_all                                       = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "siemplicity-public-a"
+          [32m+[0m[0m "Owner"       = "Latrisha Dodson"
+          [32m+[0m[0m "Project"     = "SIEMplicity"
+          [32m+[0m[0m "Purpose"     = "VPC Infrastructure for SIEM/SOC Operations"
+          [32m+[0m[0m "Role"        = "Data Quarantine Architect"
+          [32m+[0m[0m "Team"        = "SOC-SIEM"
+        }
+      [32m+[0m[0m vpc_id                                         = (known after apply)
+    }
+
+[1m  # aws_subnet.public_b[0m will be created
+[0m  [32m+[0m[0m resource "aws_subnet" "public_b" {
+      [32m+[0m[0m arn                                            = (known after apply)
+      [32m+[0m[0m assign_ipv6_address_on_creation                = false
+      [32m+[0m[0m availability_zone                              = "us-east-1b"
+      [32m+[0m[0m availability_zone_id                           = (known after apply)
+      [32m+[0m[0m cidr_block                                     = "10.0.2.0/24"
+      [32m+[0m[0m enable_dns64                                   = false
+      [32m+[0m[0m enable_resource_name_dns_a_record_on_launch    = false
+      [32m+[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false
+      [32m+[0m[0m id                                             = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_association_id                 = (known after apply)
+      [32m+[0m[0m ipv6_native                                    = false
+      [32m+[0m[0m map_public_ip_on_launch                        = true
+      [32m+[0m[0m owner_id                                       = (known after apply)
+      [32m+[0m[0m private_dns_hostname_type_on_launch            = (known after apply)
+      [32m+[0m[0m tags                                           = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "siemplicity-public-b"
+        }
+      [32m+[0m[0m tags_all                                       = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "siemplicity-public-b"
+          [32m+[0m[0m "Owner"       = "Latrisha Dodson"
+          [32m+[0m[0m "Project"     = "SIEMplicity"
+          [32m+[0m[0m "Purpose"     = "VPC Infrastructure for SIEM/SOC Operations"
+          [32m+[0m[0m "Role"        = "Data Quarantine Architect"
+          [32m+[0m[0m "Team"        = "SOC-SIEM"
+        }
+      [32m+[0m[0m vpc_id                                         = (known after apply)
+    }
+
+[1m  # aws_subnet.public_subnets[0][0m will be [1m[31mdestroyed[0m
+  # (because aws_subnet.public_subnets is not in configuration)
+[0m  [31m-[0m[0m resource "aws_subnet" "public_subnets" {
+      [31m-[0m[0m arn                                            = "arn:aws:ec2:us-east-1:214549340906:subnet/subnet-005bb92bca3489f24" [90m-> null[0m[0m
+      [31m-[0m[0m assign_ipv6_address_on_creation                = false [90m-> null[0m[0m
+      [31m-[0m[0m availability_zone                              = "us-east-1a" [90m-> null[0m[0m
+      [31m-[0m[0m availability_zone_id                           = "use1-az1" [90m-> null[0m[0m
+      [31m-[0m[0m cidr_block                                     = "10.0.1.0/24" [90m-> null[0m[0m
+      [31m-[0m[0m enable_dns64                                   = false [90m-> null[0m[0m
+      [31m-[0m[0m enable_lni_at_device_index                     = 0 [90m-> null[0m[0m
+      [31m-[0m[0m enable_resource_name_dns_a_record_on_launch    = false [90m-> null[0m[0m
+      [31m-[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false [90m-> null[0m[0m
+      [31m-[0m[0m id                                             = "subnet-005bb92bca3489f24" [90m-> null[0m[0m
+      [31m-[0m[0m ipv6_native                                    = false [90m-> null[0m[0m
+      [31m-[0m[0m map_customer_owned_ip_on_launch                = false [90m-> null[0m[0m
+      [31m-[0m[0m map_public_ip_on_launch                        = true [90m-> null[0m[0m
+      [31m-[0m[0m owner_id                                       = "214549340906" [90m-> null[0m[0m
+      [31m-[0m[0m private_dns_hostname_type_on_launch            = "ip-name" [90m-> null[0m[0m
+      [31m-[0m[0m tags                                           = {
+          [31m-[0m[0m "Name" = "SIEMplicity-Public-Subnet-1"
+          [31m-[0m[0m "Type" = "Public"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all                                       = {
+          [31m-[0m[0m "Environment" = "Development"
+          [31m-[0m[0m "ManagedBy"   = "Terraform"
+          [31m-[0m[0m "Name"        = "SIEMplicity-Public-Subnet-1"
+          [31m-[0m[0m "Owner"       = "Latrisha Dodson"
+          [31m-[0m[0m "Project"     = "SIEMplicity"
+          [31m-[0m[0m "Purpose"     = "VPC Infrastructure for SIEM/SOC Operations"
+          [31m-[0m[0m "Role"        = "Data Quarantine Architect"
+          [31m-[0m[0m "Team"        = "SOC-SIEM"
+          [31m-[0m[0m "Type"        = "Public"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m vpc_id                                         = "vpc-0be0a0b29369664db" [90m-> null[0m[0m
+        [90m# (4 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # aws_subnet.public_subnets[1][0m will be [1m[31mdestroyed[0m
+  # (because aws_subnet.public_subnets is not in configuration)
+[0m  [31m-[0m[0m resource "aws_subnet" "public_subnets" {
+      [31m-[0m[0m arn                                            = "arn:aws:ec2:us-east-1:214549340906:subnet/subnet-0512f2b3dadb5249f" [90m-> null[0m[0m
+      [31m-[0m[0m assign_ipv6_address_on_creation                = false [90m-> null[0m[0m
+      [31m-[0m[0m availability_zone                              = "us-east-1b" [90m-> null[0m[0m
+      [31m-[0m[0m availability_zone_id                           = "use1-az2" [90m-> null[0m[0m
+      [31m-[0m[0m cidr_block                                     = "10.0.2.0/24" [90m-> null[0m[0m
+      [31m-[0m[0m enable_dns64                                   = false [90m-> null[0m[0m
+      [31m-[0m[0m enable_lni_at_device_index                     = 0 [90m-> null[0m[0m
+      [31m-[0m[0m enable_resource_name_dns_a_record_on_launch    = false [90m-> null[0m[0m
+      [31m-[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false [90m-> null[0m[0m
+      [31m-[0m[0m id                                             = "subnet-0512f2b3dadb5249f" [90m-> null[0m[0m
+      [31m-[0m[0m ipv6_native                                    = false [90m-> null[0m[0m
+      [31m-[0m[0m map_customer_owned_ip_on_launch                = false [90m-> null[0m[0m
+      [31m-[0m[0m map_public_ip_on_launch                        = true [90m-> null[0m[0m
+      [31m-[0m[0m owner_id                                       = "214549340906" [90m-> null[0m[0m
+      [31m-[0m[0m private_dns_hostname_type_on_launch            = "ip-name" [90m-> null[0m[0m
+      [31m-[0m[0m tags                                           = {
+          [31m-[0m[0m "Name" = "SIEMplicity-Public-Subnet-2"
+          [31m-[0m[0m "Type" = "Public"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all                                       = {
+          [31m-[0m[0m "Environment" = "Development"
+          [31m-[0m[0m "ManagedBy"   = "Terraform"
+          [31m-[0m[0m "Name"        = "SIEMplicity-Public-Subnet-2"
+          [31m-[0m[0m "Owner"       = "Latrisha Dodson"
+          [31m-[0m[0m "Project"     = "SIEMplicity"
+          [31m-[0m[0m "Purpose"     = "VPC Infrastructure for SIEM/SOC Operations"
+          [31m-[0m[0m "Role"        = "Data Quarantine Architect"
+          [31m-[0m[0m "Team"        = "SOC-SIEM"
+          [31m-[0m[0m "Type"        = "Public"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m vpc_id                                         = "vpc-0be0a0b29369664db" [90m-> null[0m[0m
+        [90m# (4 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # aws_vpc.main[0m will be created
+[0m  [32m+[0m[0m resource "aws_vpc" "main" {
+      [32m+[0m[0m arn                                  = (known after apply)
+      [32m+[0m[0m cidr_block                           = "10.0.0.0/16"
+      [32m+[0m[0m default_network_acl_id               = (known after apply)
+      [32m+[0m[0m default_route_table_id               = (known after apply)
+      [32m+[0m[0m default_security_group_id            = (known after apply)
+      [32m+[0m[0m dhcp_options_id                      = (known after apply)
+      [32m+[0m[0m enable_dns_hostnames                 = true
+      [32m+[0m[0m enable_dns_support                   = true
+      [32m+[0m[0m enable_network_address_usage_metrics = (known after apply)
+      [32m+[0m[0m id                                   = (known after apply)
+      [32m+[0m[0m instance_tenancy                     = "default"
+      [32m+[0m[0m ipv6_association_id                  = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block                      = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_network_border_group = (known after apply)
+      [32m+[0m[0m main_route_table_id                  = (known after apply)
+      [32m+[0m[0m owner_id                             = (known after apply)
+      [32m+[0m[0m tags                                 = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "siemplicity-vpc"
+          [32m+[0m[0m "Project"     = "SIEMplicity"
+        }
+      [32m+[0m[0m tags_all                             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "siemplicity-vpc"
+          [32m+[0m[0m "Owner"       = "Latrisha Dodson"
+          [32m+[0m[0m "Project"     = "SIEMplicity"
+          [32m+[0m[0m "Purpose"     = "VPC Infrastructure for SIEM/SOC Operations"
+          [32m+[0m[0m "Role"        = "Data Quarantine Architect"
+          [32m+[0m[0m "Team"        = "SOC-SIEM"
+        }
+    }
+
+[1m  # aws_vpc.siemplicity_vpc[0m will be [1m[31mdestroyed[0m
+  # (because aws_vpc.siemplicity_vpc is not in configuration)
+[0m  [31m-[0m[0m resource "aws_vpc" "siemplicity_vpc" {
+      [31m-[0m[0m arn                                  = "arn:aws:ec2:us-east-1:214549340906:vpc/vpc-0be0a0b29369664db" [90m-> null[0m[0m
+      [31m-[0m[0m assign_generated_ipv6_cidr_block     = false [90m-> null[0m[0m
+      [31m-[0m[0m cidr_block                           = "10.0.0.0/16" [90m-> null[0m[0m
+      [31m-[0m[0m default_network_acl_id               = "acl-01670d80ffa3d1af8" [90m-> null[0m[0m
+      [31m-[0m[0m default_route_table_id               = "rtb-0ba13b85330c6eda4" [90m-> null[0m[0m
+      [31m-[0m[0m default_security_group_id            = "sg-012578477958a1216" [90m-> null[0m[0m
+      [31m-[0m[0m dhcp_options_id                      = "dopt-0bffd8de8cd3ddd26" [90m-> null[0m[0m
+      [31m-[0m[0m enable_dns_hostnames                 = true [90m-> null[0m[0m
+      [31m-[0m[0m enable_dns_support                   = true [90m-> null[0m[0m
+      [31m-[0m[0m enable_network_address_usage_metrics = false [90m-> null[0m[0m
+      [31m-[0m[0m id                                   = "vpc-0be0a0b29369664db" [90m-> null[0m[0m
+      [31m-[0m[0m instance_tenancy                     = "default" [90m-> null[0m[0m
+      [31m-[0m[0m ipv6_netmask_length                  = 0 [90m-> null[0m[0m
+      [31m-[0m[0m main_route_table_id                  = "rtb-0ba13b85330c6eda4" [90m-> null[0m[0m
+      [31m-[0m[0m owner_id                             = "214549340906" [90m-> null[0m[0m
+      [31m-[0m[0m tags                                 = {
+          [31m-[0m[0m "Description" = "VPC for SIEMplicity SOC/SIEM operations"
+          [31m-[0m[0m "Name"        = "SIEMplicity-VPC"
+          [31m-[0m[0m "Type"        = "Quarantine Network"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all                             = {
+          [31m-[0m[0m "Description" = "VPC for SIEMplicity SOC/SIEM operations"
+          [31m-[0m[0m "Environment" = "Development"
+          [31m-[0m[0m "ManagedBy"   = "Terraform"
+          [31m-[0m[0m "Name"        = "SIEMplicity-VPC"
+          [31m-[0m[0m "Owner"       = "Latrisha Dodson"
+          [31m-[0m[0m "Project"     = "SIEMplicity"
+          [31m-[0m[0m "Purpose"     = "VPC Infrastructure for SIEM/SOC Operations"
+          [31m-[0m[0m "Role"        = "Data Quarantine Architect"
+          [31m-[0m[0m "Team"        = "SOC-SIEM"
+          [31m-[0m[0m "Type"        = "Quarantine Network"
+        } [90m-> null[0m[0m
+        [90m# (4 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # random_string.bucket_suffix[0m will be [1m[31mdestroyed[0m
+  # (because random_string.bucket_suffix is not in configuration)
+[0m  [31m-[0m[0m resource "random_string" "bucket_suffix" {
+      [31m-[0m[0m id          = "i0olubul" [90m-> null[0m[0m
+      [31m-[0m[0m length      = 8 [90m-> null[0m[0m
+      [31m-[0m[0m lower       = true [90m-> null[0m[0m
+      [31m-[0m[0m min_lower   = 0 [90m-> null[0m[0m
+      [31m-[0m[0m min_numeric = 0 [90m-> null[0m[0m
+      [31m-[0m[0m min_special = 0 [90m-> null[0m[0m
+      [31m-[0m[0m min_upper   = 0 [90m-> null[0m[0m
+      [31m-[0m[0m number      = true [90m-> null[0m[0m
+      [31m-[0m[0m numeric     = true [90m-> null[0m[0m
+      [31m-[0m[0m result      = "i0olubul" [90m-> null[0m[0m
+      [31m-[0m[0m special     = false [90m-> null[0m[0m
+      [31m-[0m[0m upper       = false [90m-> null[0m[0m
+    }
+
+[1mPlan:[0m 14 to add, 1 to change, 19 to destroy.
+[0m
+Changes to Outputs:
+  [33m~[0m[0m internet_gateway_id          = "igw-03fa4453654ca1f14" -> (known after apply)
+  [33m~[0m[0m private_route_table_id       = "rtb-0aa68f0861a5aaba4" -> (known after apply)
+  [33m~[0m[0m private_subnet_ids           = [
+      [33m~[0m[0m "subnet-054555272625151a0" -> (known after apply),
+      [33m~[0m[0m "subnet-07ca8d2d3189cba7b" -> (known after apply),
+    ]
+  [33m~[0m[0m public_route_table_id        = "rtb-05f8abf37963a9039" -> (known after apply)
+  [33m~[0m[0m public_subnet_ids            = [
+      [33m~[0m[0m "subnet-005bb92bca3489f24" -> (known after apply),
+      [33m~[0m[0m "subnet-0512f2b3dadb5249f" -> (known after apply),
+    ]
+  [33m~[0m[0m quarantine_security_group_id = "sg-09dbfce1f2fab69e9" -> (known after apply)
+  [33m~[0m[0m vpc_id                       = "vpc-0be0a0b29369664db" -> (known after apply)
+[90m
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ[0m
+
+Saved the plan to: vpc.plan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "vpc.plan"
